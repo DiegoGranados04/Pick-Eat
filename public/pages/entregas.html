@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Entregas - Pick&Eat</title>
+  <link rel="stylesheet" href="../styles/base.css" />
+  <link rel="stylesheet" href="../styles/layout.css" />
+  <link rel="stylesheet" href="../styles/components.css" />
+  <link rel="stylesheet" href="../styles/pages.css" />
+  <link rel="stylesheet" href="../styles/animations.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="container fade-in">
+    <h1>Hola repartidor, <span id="repartidorNombre"></span></h1>
+    <p>Rol: <span id="repartidorRol"></span></p>
+
+    <section id="entregasPendientes">
+      <div class="spinner" id="loader"></div>
+    </section>
+
+    <div id="entregaConfirmada" class="order-progress" style="display:none;">
+      ✅ Pedido entregado con éxito.
+    </div>
+  </main>
+
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro - Pick&Eat</title>
+  <link rel="stylesheet" href="../styles/base.css" />
+  <link rel="stylesheet" href="../styles/layout.css" />
+  <link rel="stylesheet" href="../styles/components.css" />
+  <link rel="stylesheet" href="../styles/pages.css" />
+  <link rel="stylesheet" href="../styles/animations.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header></header>
+
+  <!-- Formulario -->
+  <main class="fade-in">
+    <section class="inicio">
+      <div class="inicio-box">
+        <h1>Crear una <span class="marca">Cuenta</span></h1>
+        <p>Regístrate para usar Pick&Eat como cliente o repartidor.</p>
+
+        <form id="registerForm">
+          <input type="text" id="regUser" placeholder="Nombre de usuario" required />
+          <input type="email" id="regEmail" placeholder="Correo electrónico" required />
+          <input type="password" id="regPass" placeholder="Contraseña (mínimo 6 caracteres)" required minlength="6" />
+          <input type="password" id="regConfirmPass" placeholder="Confirmar contraseña" required />
+          <select id="regRole" required>
+            <option value="">Selecciona un rol</option>
+            <option value="cliente">Cliente</option>
+            <option value="repartidor">Repartidor</option>
+          </select>
+          <button type="submit" class="btn">Registrar</button>
+        </form>
+
+        <p style="margin-top: 1rem;">¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+        <div id="message" style="margin-top: 1rem; color: var(--color-alerta); font-weight: 500;"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer></footer>
+
+  <!-- Scripts -->
+  <script src="../scripts/auth.js"></script>
+
+  <script>
+    // Cargar navbar y footer
+    document.addEventListener("DOMContentLoaded", () => {
+      const header = document.querySelector("header");
+      const footer = document.querySelector("footer");
+
+      if (header) {
+        fetch("../components/navbar.html")
+          .then(res => res.text())
+          .then(html => {
+            header.innerHTML = html;
+            personalizarNavbar();
+          });
+      }
+
+      if (footer) {
+        fetch("../components/footer.html")
+          .then(res => res.text())
+          .then(html => footer.innerHTML = html);
+      }
+
+      // Validación del formulario
+      document.getElementById("registerForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const user = document.getElementById("regUser").value.trim();
+        const email = document.getElementById("regEmail").value.trim();
+        const pass = document.getElementById("regPass").value;
+        const confirmPass = document.getElementById("regConfirmPass").value;
+        const role = document.getElementById("regRole").value;
+        const message = document.getElementById("message");
+
+        if (pass.length < 6) {
+          message.textContent = "La contraseña debe tener al menos 6 caracteres.";
+          return;
+        }
+
+        if (pass !== confirmPass) {
+          message.textContent = "Las contraseñas no coinciden.";
+          return;
+        }
+
+        // Aquí puedes llamar la función de registro
+        registrarUsuario(user, email, pass, role);
+      });
+    });
+
+    function personalizarNavbar() {
+      const usuario = JSON.parse(localStorage.getItem("usuarioActivo"));
+      const navLinks = document.getElementById("navLinks");
+      if (!navLinks) return;
+
+      if (!usuario) {
+        navLinks.innerHTML = `
+          <li><a href="/index.html">Inicio</a></li>
+          <li><a href="/pages/tiendas.html">Cafeterías</a></li>
+          <li class="submenu">
+            <a href="#">Usuario ▾</a>
+            <ul class="submenu-items">
+              <li><a href="/pages/login.html">Iniciar Sesión</a></li>
+              <li><a href="/pages/register.html">Registrarse</a></li>
+            </ul>
+          </li>
+        `;
+      } else if (usuario.role === "cliente") {
+        navLinks.innerHTML = `
+          <li><a href="/index.html">Inicio</a></li>
+          <li><a href="/pages/tiendas.html">Cafeterías</a></li>
+          <li><a href="/pages/pedidos.html">Pedidos</a></li>
+          <li><a href="/pages/favoritos.html">Favoritos</a></li>
+          <li class="submenu">
+            <a href="#">${usuario.username} ▾</a>
+            <ul class="submenu-items">
+              <li><a href="/pages/perfil.html">Perfil</a></li>
+              <li><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
+            </ul>
+          </li>
+        `;
+      } else if (usuario.role === "repartidor") {
+        navLinks.innerHTML = `
+          <li><a href="/index.html">Inicio</a></li>
+          <li><a href="/pages/tiendas.html">Cafeterías</a></li>
+          <li><a href="/pages/entregas.html">Entregas</a></li>
+          <li class="submenu">
+            <a href="#">${usuario.username} ▾</a>
+            <ul class="submenu-items">
+              <li><a href="/pages/perfil.html">Perfil</a></li>
+              <li><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
+            </ul>
+          </li>
+        `;
+      }
+    }
+
+    function cerrarSesion() {
+      localStorage.removeItem("usuarioActivo");
+      window.location.href = "/index.html";
+    }
+
+    function registrarUsuario(username, email, password, role) {
+      let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+      if (usuarios.find(u => u.username === username)) {
+        document.getElementById("message").textContent = "El nombre de usuario ya está en uso.";
+        return;
+      }
+
+      usuarios.push({ username, email, password, role });
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+      document.getElementById("message").style.color = "green";
+      document.getElementById("message").textContent = "Usuario registrado correctamente. Ahora puedes iniciar sesión.";
+      document.getElementById("registerForm").reset();
+    }
+  </script>
+</body>
+</html>
