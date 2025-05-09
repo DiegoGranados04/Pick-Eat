@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menú - Café Telemática</title>
+  <link rel="stylesheet" href="../styles/base.css" />
+  <link rel="stylesheet" href="../styles/layout.css" />
+  <link rel="stylesheet" href="../styles/components.css" />
+  <link rel="stylesheet" href="../styles/pages.css" />
+  <link rel="stylesheet" href="../styles/animations.css" />
+</head>
+<body>
+  <header></header>
+
+  <main class="container fade-in">
+    <h1 class="titulo-seccion">Menú - Café Telemática</h1>
+    <section id="menuLista" class="grid-productos"></section>
+    <div id="mensaje" style="margin-top: 1rem; font-weight: 500;"></div>
+  </main>
+
+  <footer></footer>
+
+  <script>
+    const alimentos = [
+      {
+        nombre: "Panini de jamón y queso",
+        precio: "$35",
+        detalles: "Pan crujiente con queso manchego y jamón, acompañado de chips.",
+      },
+      {
+        nombre: "Smoothie de frutos rojos",
+        precio: "$30",
+        detalles: "Mezcla natural de fresa, mora azul y plátano con yogurt.",
+      },
+      {
+        nombre: "Baguette de pollo chipotle",
+        precio: "$50",
+        detalles: "Baguette artesanal con pollo a la parrilla, chipotle y verduras.",
+      },
+      {
+        nombre: "Café latte",
+        precio: "$28",
+        detalles: "Espresso con leche vaporizada, espumoso y caliente.",
+      }
+    ];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const menuLista = document.getElementById("menuLista");
+      const mensaje = document.getElementById("mensaje");
+
+      alimentos.forEach(alimento => {
+        const card = document.createElement("div");
+        card.className = "producto-card slideIn";
+        card.innerHTML = `
+          <h3>${alimento.nombre}</h3>
+          <p><strong>Precio:</strong> ${alimento.precio}</p>
+          <p>${alimento.detalles}</p>
+          <button class="btn" onclick="agregarAlCarrito('${alimento.nombre}', '${alimento.precio}')">Agregar al carrito</button>
+        `;
+        menuLista.appendChild(card);
+      });
+
+      window.agregarAlCarrito = (nombre, precio) => {
+        const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        carrito.push({ nombre, precio });
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        mensaje.textContent = `✅ "${nombre}" agregado al carrito.`;
+        mensaje.style.color = "green";
+        setTimeout(() => mensaje.textContent = "", 3000);
+      };
+    });
+  </script>
+</body>
+</html>

@@ -245,21 +245,41 @@ function cerrarSesion() {
 
 function cargarTiendas(container) {
   const tiendas = [
-    { nombre: "Cafetería Central", ubicacion: "Edificio A", horario: "7:00am - 3:00pm" },
-    { nombre: "Café Telemática", ubicacion: "Edificio C", horario: "8:00am - 2:30pm" },
-    { nombre: "Snack Plaza", ubicacion: "Zona común", horario: "9:00am - 4:00pm" },
+    {
+      nombre: "Cafetería Central",
+      ubicacion: "Campus Central",
+      horario: "7:00am - 3:00pm",
+      imagen: "/images/img-central.jpg",
+      link: "./menu-cafeteria-central.html"
+    },
+    {
+      nombre: "Café Telemática",
+      ubicacion: "Campus Central",
+      horario: "8:00am - 2:30pm",
+      imagen: "https://via.placeholder.com/400x250?text=Caf%C3%A9+Telem%C3%A1tica",
+      link: "./menu-cafe-telematica.html"
+    },
+    {
+      nombre: "Snack Plaza",
+      ubicacion: "Campus Central",
+      horario: "9:00am - 4:00pm",
+      imagen: "https://via.placeholder.com/400x250?text=Snack+Plaza",
+      link: "./menu-snack-plaza.html"
+    }
   ];
+  
 
   tiendas.forEach(t => {
     const card = document.createElement("div");
     card.className = "producto-card slideIn";
     card.innerHTML = `
+      <img src="${t.imagen}" alt="${t.nombre}" style="width: 100%; border-radius: 8px;" />
       <h3>${t.nombre}</h3>
       <p><strong>Ubicación:</strong> ${t.ubicacion}</p>
       <p><strong>Horario:</strong> ${t.horario}</p>
-      <button class="btn btn-secundario">Ver menú</button>
+      <button class="btn btn-secundario" onclick="window.location.href='${t.link}'">Ver menú</button>
     `;
     container.appendChild(card);
   });
 }
-
+;
