@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../styles/components.css" />
   <link rel="stylesheet" href="../styles/pages.css" />
   <link rel="stylesheet" href="../styles/animations.css" />
+  <link rel="stylesheet" href="../styles/estadoPedido.css" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -27,6 +28,49 @@
       </div>
     </section>
 
+    <!-- Detalle del pedido -->
+<section id="detallePedido" class="detalle-pedido" style="display:none;">
+  <div class="detalle-header">
+    <h2>Resumen del pedido</h2>
+    <button class="cerrar-detalle" onclick="cerrarDetallePedido()">✖</button>
+  </div>
+  <div class="resumen-info">
+    <p><strong>Cafetería:</strong> <span id="cafeteriaNombre"></span></p>
+    <p><strong>Método:</strong> <span id="metodoElegido"></span></p>
+    <p><strong>Mapa:</strong></p>
+    <img id="imagenMapa" src="https://via.placeholder.com/400x250?text=Mapa+Ubicacion" alt="Ubicación">
+    <p><strong>Producto:</strong> <span id="productoPedido">Pizza individual</span></p>
+    <p><strong>Precio del producto:</strong> $<span id="precioProducto">45</span></p>
+    <p><strong>Costo de envío:</strong> $<span id="costoEnvio">0</span></p>
+    <p><strong>Total:</strong> $<span id="totalPedido">0</span></p>
+
+    <!-- Barra de estado visual -->
+    <div class="barra-estado">
+      <div class="paso activo" id="paso1">
+        <span>📥</span>
+        <p>Aceptado</p>
+      </div>
+      <div class="paso" id="paso2">
+        <span>👨‍🍳</span>
+        <p>Preparando</p>
+      </div>
+      <div class="paso" id="paso3">
+        <span>🍽️</span>
+        <p>Listo</p>
+      </div>
+      <div class="paso" id="paso4">
+        <span id="iconoPaso4">🏃‍♂️</span>
+        <p id="etiquetaPaso4">Recolectado</p>
+      </div>
+      <div class="paso" id="paso5">
+        <span>✅</span>
+        <p>Entregado</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
     <div id="pedidoConfirmado" class="order-progress" style="display:none;">
       ✅ ¡Pedido realizado con éxito!
     </div>
@@ -39,7 +83,7 @@
   <script src="../scripts/main.js"></script>
   <script src="../scripts/pedidos.js"></script>
   <script src="../scripts/auth.js"></script>
-
+  <script src="../scripts/detallePedido.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -64,50 +108,3 @@
   </script>
 </body>
 </html>
-
-
-
-<!-- 
-
-<section class="catalogo fade-in">
-  <h1 class="titulo-seccion">Cafeterías disponibles</h1>
-  <div class="grid-tiendas">
-    <div class="producto-card slideIn">
-      <img src="https://via.placeholder.com/300x200?text=Cafeteria+Central" alt="Cafetería Central" style="width:100%; border-radius:8px;" />
-      <h3>Cafetería Central</h3>
-      <p><strong>Ubicación:</strong> Campus Central</p>
-      <p><strong>Horario:</strong> 7:00am - 4:00pm</p>
-      <button class="btn btn-secundario">Ver menú</button>
-    </div>
-    <div class="producto-card slideIn">
-      <img src="https://via.placeholder.com/300x200?text=Cafe+Zona+C" alt="Café Zona C" style="width:100%; border-radius:8px;" />
-      <h3>Café Zona C</h3>
-      <p><strong>Ubicación:</strong> Campus Central</p>
-      <p><strong>Horario:</strong> 8:00am - 3:00pm</p>
-      <button class="btn btn-secundario">Ver menú</button>
-    </div>
-    <div class="producto-card slideIn">
-      <img src="https://via.placeholder.com/300x200?text=Snack+Plaza" alt="Snack Plaza" style="width:100%; border-radius:8px;" />
-      <h3>Snack Plaza</h3>
-      <p><strong>Ubicación:</strong> Campus Central</p>
-      <p><strong>Horario:</strong> 9:00am - 5:00pm</p>
-      <button class="btn btn-secundario">Ver menú</button>
-    </div>
-    <div class="producto-card slideIn">
-      <img src="https://via.placeholder.com/300x200?text=La+Esquinita" alt="La Esquinita" style="width:100%; border-radius:8px;" />
-      <h3>La Esquinita</h3>
-      <p><strong>Ubicación:</strong> Campus Central</p>
-      <p><strong>Horario:</strong> 10:00am - 6:00pm</p>
-      <button class="btn btn-secundario">Ver menú</button>
-    </div>
-    <div class="producto-card slideIn">
-      <img src="https://via.placeholder.com/300x200?text=Comedor+Univ" alt="Comedor Universitario" style="width:100%; border-radius:8px;" />
-      <h3>Comedor Universitario</h3>
-      <p><strong>Ubicación:</strong> Campus Central</p>
-      <p><strong>Horario:</strong> 6:30am - 3:30pm</p>
-      <button class="btn btn-secundario">Ver menú</button>
-    </div>
-  </div>
-</section>
-
--->
