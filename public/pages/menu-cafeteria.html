@@ -3,38 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cafeterías - Pick&Eat</title>
+  <title>Menú - Pick&Eat</title>
 
-  <!-- Estilos base -->
+  <!-- Estilos -->
   <link rel="stylesheet" href="../styles/base.css" />
   <link rel="stylesheet" href="../styles/layout.css" />
   <link rel="stylesheet" href="../styles/components.css" />
   <link rel="stylesheet" href="../styles/pages.css" />
   <link rel="stylesheet" href="../styles/animations.css" />
-  <link rel="stylesheet" href="../styles/tiendasExpandible.css" />
-
-  <!-- Tipografía -->
+  <link rel="stylesheet" href="../styles/menuCafeteria.css" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- Encabezado -->
   <header></header>
 
-  <!-- Contenido principal -->
   <main class="container fade-in">
-    <h1>Cafeterías disponibles</h1>
-    <section id="contenedorTiendas" class="lista-tiendas">
-      <!-- Tiendas se cargarán dinámicamente con JS -->
+    <div id="infoCafeteria" class="info-cafeteria">
+      <!-- Detalle cafetería -->
+    </div>
+
+    <section>
+      <h2>Menú</h2>
+      <div id="menuProductos" class="grid-productos">
+        <!-- Productos dinámicos -->
+      </div>
     </section>
   </main>
 
-  <!-- Pie de página -->
   <footer></footer>
 
   <!-- Scripts -->
-  <script src="../data/tiendasData.js"></script>
-  <script src="../scripts/tiendasExpandible.js"></script>
+  <script src="../data/cafeterias.js"></script>
+  <script src="../data/productosCafeteria.js"></script>
+  <script src="../scripts/menuCafeteria.js"></script>
   <script src="../scripts/main.js"></script>
 </body>
 </html>

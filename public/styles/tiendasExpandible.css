@@ -1,0 +1,100 @@
+.lista-tiendas {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.tarjeta-tienda {
+  background-color: var(--color-blanco);
+  border: 1.8px solid var(--color-acento);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.encabezado-tienda {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 1rem;
+  gap: 1rem;
+  background-color: var(--color-fondo);
+  transition: background-color 0.3s ease;
+}
+
+.encabezado-tienda:hover {
+  background-color: #f1e8d2;
+}
+
+.encabezado-tienda img {
+  width: 85px;
+  height: 65px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid var(--color-acento);
+  background-color: var(--color-blanco);
+}
+
+.encabezado-tienda .info h3 {
+  font-size: 1.1rem;
+  color: var(--color-texto);
+  font-weight: 600;
+  margin: 0 0 0.3rem 0;
+}
+
+.encabezado-tienda .info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-texto);
+}
+
+.encabezado-tienda .flecha {
+  font-size: 1.3rem;
+  color: var(--color-primario);
+  transition: transform 0.3s ease;
+  margin-left: auto;
+}
+
+.detalle-tienda {
+  padding: 1rem 1.5rem 1.5rem 1.5rem;
+  background-color: #fffaf0;
+  display: none;
+  animation: fadeIn 0.3s ease;
+  border-top: 1px dashed var(--color-acento);
+}
+
+.detalle-tienda.visible {
+  display: block;
+}
+
+.detalle-tienda p {
+  font-size: 0.95rem;
+  color: var(--color-texto);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.detalle-tienda .btn {
+  background-color: var(--color-primario);
+  color: var(--color-blanco);
+  padding: 0.45rem 1.1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  transition: background 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+}
+
+.detalle-tienda .btn:hover {
+  background-color: var(--color-secundario);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}

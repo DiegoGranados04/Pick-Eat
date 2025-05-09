@@ -281,32 +281,12 @@ function cerrarSesion() {
 }
 
 function cargarTiendas(container) {
-  const tiendas = [
-    {
-      nombre: "Cafetería Central",
-      ubicacion: "Campus Central",
-      horario: "7:00am - 3:00pm",
-      imagen: "/images/img-central.jpg",
-      link: "./menu-cafeteria-central.html"
-    },
-    {
-      nombre: "Café Telemática",
-      ubicacion: "Campus Central",
-      horario: "8:00am - 2:30pm",
-      imagen: "https://via.placeholder.com/400x250?text=Caf%C3%A9+Telem%C3%A1tica",
-      link: "./menu-cafe-telematica.html"
-    },
-    {
-      nombre: "Snack Plaza",
-      ubicacion: "Campus Central",
-      horario: "9:00am - 4:00pm",
-      imagen: "https://via.placeholder.com/400x250?text=Snack+Plaza",
-      link: "./menu-snack-plaza.html"
-    }
-  ];
-  
+  if (typeof DATA_TIENDAS === "undefined") {
+    console.error("❌ No se pudo cargar DATA_TIENDAS.");
+    return;
+  }
 
-  tiendas.forEach(t => {
+  DATA_TIENDAS.forEach(t => {
     const card = document.createElement("div");
     card.className = "producto-card slideIn";
     card.innerHTML = `
