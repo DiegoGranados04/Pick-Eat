@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registro - Pick&Eat</title>
+
   <link rel="stylesheet" href="../styles/base.css" />
   <link rel="stylesheet" href="../styles/layout.css" />
   <link rel="stylesheet" href="../styles/components.css" />
@@ -17,27 +18,39 @@
   <header></header>
 
   <!-- Formulario -->
-  <main class="fade-in">
-    <section class="inicio">
+  <main class="fade-in" aria-labelledby="registerTitle">
+    <section class="inicio" role="region" aria-label="Formulario de registro">
       <div class="inicio-box">
-        <h1>Crear una <span class="marca">Cuenta</span></h1>
+        <h1 id="registerTitle">Crear una <span class="marca">Cuenta</span></h1>
         <p>Regístrate para usar Pick&Eat como cliente o repartidor.</p>
 
-        <form id="registerForm">
-          <input type="text" id="regUser" placeholder="Nombre de usuario" required />
-          <input type="email" id="regEmail" placeholder="Correo electrónico" required />
-          <input type="password" id="regPass" placeholder="Contraseña (mínimo 6 caracteres)" required minlength="6" />
-          <input type="password" id="regConfirmPass" placeholder="Confirmar contraseña" required />
-          <select id="regRole" required>
+        <form id="registerForm" aria-describedby="registerDesc">
+          <p id="registerDesc" class="visually-hidden">Formulario para registrar una cuenta nueva en Pick&Eat.</p>
+
+          <label for="regUser">Nombre de usuario</label>
+          <input type="text" id="regUser" name="regUser" placeholder="Ej. maria_garcia" required />
+
+          <label for="regEmail">Correo electrónico</label>
+          <input type="email" id="regEmail" name="regEmail" placeholder="Ej. maria@example.com" required />
+
+          <label for="regPass">Contraseña</label>
+          <input type="password" id="regPass" name="regPass" placeholder="Mínimo 6 caracteres" required minlength="6" />
+
+          <label for="regConfirmPass">Confirmar contraseña</label>
+          <input type="password" id="regConfirmPass" name="regConfirmPass" placeholder="Repite la contraseña" required />
+
+          <label for="regRole">Rol</label>
+          <select id="regRole" name="regRole" required>
             <option value="">Selecciona un rol</option>
             <option value="cliente">Cliente</option>
             <option value="repartidor">Repartidor</option>
           </select>
+
           <button type="submit" class="btn">Registrar</button>
         </form>
 
         <p style="margin-top: 1rem;">¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí</a></p>
-        <div id="message" style="margin-top: 1rem; color: var(--color-alerta); font-weight: 500;"></div>
+        <div id="message" role="alert" aria-live="assertive" style="margin-top: 1rem; color: var(--color-alerta); font-weight: 500;"></div>
       </div>
     </section>
   </main>
@@ -47,9 +60,7 @@
 
   <!-- Scripts -->
   <script src="../scripts/auth.js"></script>
-
   <script>
-    // Cargar navbar y footer
     document.addEventListener("DOMContentLoaded", () => {
       const header = document.querySelector("header");
       const footer = document.querySelector("footer");
@@ -89,7 +100,6 @@
           return;
         }
 
-        // Aquí puedes llamar la función de registro
         registrarUsuario(user, email, pass, role);
       });
     });

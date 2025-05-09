@@ -19,20 +19,43 @@
   <header></header>
 
   <!-- Formulario de inicio de sesión -->
-  <main class="fade-in">
-    <section class="inicio">
+  <main class="fade-in" aria-labelledby="loginTitle">
+    <section class="inicio" role="region" aria-label="Inicio de sesión">
       <div class="inicio-box">
-        <h1>Bienvenido a <span class="marca">Pick&Eat</span></h1>
+        <h1 id="loginTitle">Bienvenido a <span class="marca">Pick&Eat</span></h1>
         <p>Inicia sesión para acceder a tus pedidos y beneficios.</p>
 
-        <form id="loginForm">
-          <input type="text" id="loginUser" placeholder="Nombre de usuario" required />
-          <input type="password" id="loginPass" placeholder="Contraseña" required />
+        <form id="loginForm" aria-describedby="loginDesc">
+          <p id="loginDesc" class="visually-hidden">Formulario para iniciar sesión en la plataforma Pick&Eat.</p>
+
+          <label for="loginUser">Nombre de usuario</label>
+          <input
+            type="text"
+            id="loginUser"
+            name="loginUser"
+            placeholder="Ej. juan.perez123"
+            required
+            autocomplete="username"
+          />
+
+          <label for="loginPass">Contraseña</label>
+          <input
+            type="password"
+            id="loginPass"
+            name="loginPass"
+            placeholder="Ej. TuContraseñaSegura"
+            required
+            autocomplete="current-password"
+          />
+
           <button type="submit" class="btn">Ingresar</button>
         </form>
 
-        <p style="margin-top: 1rem;">¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
-        <div id="loginMessage"></div>
+        <p style="margin-top: 1rem;">
+          ¿No tienes cuenta? <a href="register.html">Regístrate aquí</a>
+        </p>
+
+        <div id="loginMessage" role="alert" aria-live="polite"></div>
       </div>
     </section>
   </main>
@@ -44,20 +67,17 @@
   <script src="../scripts/auth.js"></script>
   <script src="../scripts/main.js"></script>
 
-
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const header = document.querySelector("header");
       const footer = document.querySelector("footer");
 
-      // Redirigir si ya hay una sesión activa
       const usuario = JSON.parse(localStorage.getItem("usuarioActivo"));
       if (usuario) {
         window.location.href = "/index.html";
         return;
       }
 
-      // Cargar navbar
       if (header) {
         fetch("../components/navbar.html")
           .then(res => res.text())
@@ -67,7 +87,6 @@
           });
       }
 
-      // Cargar footer
       if (footer) {
         fetch("../components/footer.html")
           .then(res => res.text())
@@ -75,7 +94,6 @@
       }
     });
 
-    // Personalizar barra de navegación
     function personalizarNavbar() {
       const navLinks = document.getElementById("navLinks");
       if (!navLinks) return;
