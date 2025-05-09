@@ -152,11 +152,20 @@ function configurarNavbar() {
 
   navLinks.innerHTML = links;
 
-  // 🔧 Solución real: usar clase "show" que sí aplica en mobile correctamente
+  // ✅ Configuración del menú hamburguesa
   const toggleBtn = document.getElementById("menuToggle");
+
   if (toggleBtn && navLinks) {
     toggleBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("show");  // NO usar "active"
+      navLinks.classList.toggle("show");
+    });
+
+    // Cierra el menú al hacer clic fuera de él (en móvil)
+    document.addEventListener("click", (e) => {
+      const isClickInside = navLinks.contains(e.target) || toggleBtn.contains(e.target);
+      if (!isClickInside && navLinks.classList.contains("show")) {
+        navLinks.classList.remove("show");
+      }
     });
   }
 }

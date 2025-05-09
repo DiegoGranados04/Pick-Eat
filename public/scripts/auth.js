@@ -13,13 +13,25 @@ function setupRegister() {
     e.preventDefault();
 
     const username = document.getElementById("regUser").value.trim();
-    const email = document.getElementById("regEmail").value.trim();
+    const email = document.getElementById("regEmail").value.trim().toLowerCase();
     const password = document.getElementById("regPass").value;
     const confirmPass = document.getElementById("regConfirmPass").value;
     const role = document.getElementById("regRole").value;
 
     if (!username || !email || !password || !confirmPass || !role) {
       message.innerText = "Todos los campos son obligatorios.";
+      message.style.color = "var(--color-alerta)";
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      message.innerText = "Ingresa un correo electrónico válido.";
+      message.style.color = "var(--color-alerta)";
+      return;
+    }
+
+    if (password.length < 6) {
+      message.innerText = "La contraseña debe tener al menos 6 caracteres.";
       message.style.color = "var(--color-alerta)";
       return;
     }
@@ -32,14 +44,16 @@ function setupRegister() {
 
     const users = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-    if (users.find(u => u.username === username)) {
-      message.innerText = "Ese usuario ya está registrado.";
+    const usuarioExistente = users.find(u => u.username === username);
+    if (usuarioExistente) {
+      message.innerText = "Ese nombre de usuario ya está en uso.";
       message.style.color = "var(--color-alerta)";
       return;
     }
 
-    if (users.find(u => u.email === email)) {
-      message.innerText = "Ese correo ya está en uso.";
+    const emailExistente = users.find(u => u.email === email);
+    if (emailExistente) {
+      message.innerText = "Ese correo electrónico ya está registrado.";
       message.style.color = "var(--color-alerta)";
       return;
     }
@@ -47,9 +61,12 @@ function setupRegister() {
     users.push({ username, email, password, role });
     localStorage.setItem("usuarios", JSON.stringify(users));
 
-    message.innerText = "Registro exitoso. Puedes iniciar sesión.";
-    message.style.color = "var(--color-exito)";
-    registerForm.reset();
+    message.innerText = "✅ Registro exitoso. Serás redirigido al inicio de sesión.";
+    message.style.color = "green";
+
+    setTimeout(() => {
+      window.location.href = "/pages/login.html";
+    }, 1500);
   });
 }
 

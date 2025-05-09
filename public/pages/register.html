@@ -81,27 +81,6 @@
       }
 
       // Validación del formulario
-      document.getElementById("registerForm").addEventListener("submit", function (e) {
-        e.preventDefault();
-        const user = document.getElementById("regUser").value.trim();
-        const email = document.getElementById("regEmail").value.trim();
-        const pass = document.getElementById("regPass").value;
-        const confirmPass = document.getElementById("regConfirmPass").value;
-        const role = document.getElementById("regRole").value;
-        const message = document.getElementById("message");
-
-        if (pass.length < 6) {
-          message.textContent = "La contraseña debe tener al menos 6 caracteres.";
-          return;
-        }
-
-        if (pass !== confirmPass) {
-          message.textContent = "Las contraseñas no coinciden.";
-          return;
-        }
-
-        registrarUsuario(user, email, pass, role);
-      });
     });
 
     function personalizarNavbar() {
