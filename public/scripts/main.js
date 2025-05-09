@@ -206,37 +206,74 @@ function realizarPedido(nombre) {
 
 function cargarEntregas(container) {
   const pedidos = [
-    { cliente: "Juan", producto: "Torta de jamón", ubicacion: "Edificio C" },
-    { cliente: "Ana", producto: "Pizza", ubicacion: "Biblioteca" },
-    { cliente: "Luis", producto: "Ensalada", ubicacion: "Laboratorio 3" },
+    { cliente: "Juan", producto: "Torta de jamón", ubicacion: "Edificio C", hora: "12:30" },
+    { cliente: "Ana", producto: "Pizza", ubicacion: "Biblioteca", hora: "12:45" },
+    { cliente: "Luis", producto: "Ensalada", ubicacion: "Laboratorio 3", hora: "13:00" },
   ];
 
   pedidos.forEach(p => {
     const card = document.createElement("div");
     card.className = "producto-card slideIn";
     card.innerHTML = `
-      <h3>Pedido de ${p.cliente}</h3>
-      <p><strong>Producto:</strong> ${p.producto}</p>
-      <p><strong>Ubicación:</strong> ${p.ubicacion}</p>
-      <button class="btn waiting-pulse" onclick="entregarPedido(this)">Marcar como entregado</button>
-    `;
+    <h3>Pedido de ${p.cliente}</h3>
+    <p><strong>Producto:</strong> ${p.producto}</p>
+    <p><strong>Ubicación:</strong> ${p.ubicacion}</p>
+    <p><strong>Hora:</strong> 🕒 ${p.hora}</p>
+    <button class="btn waiting-pulse" onclick="entregarPedido(this)">Tomar pedido</button>
+  `;
+  
     container.appendChild(card);
   });
 }
 
 function entregarPedido(button) {
   const card = button.parentElement;
-  card.style.opacity = "0.5";
-  button.disabled = true;
-  button.textContent = "Entregado";
+  button.remove(); // Eliminar el botón una vez presionado
 
-  const confirmacion = document.getElementById("entregaConfirmada");
-  confirmacion.style.display = "block";
+  const estado = document.createElement("div");
+  estado.className = "barra-estado";
+  estado.innerHTML = `
+    <div class="paso activo" id="paso1">
+      <span>📥</span>
+      <p>Aceptado</p>
+    </div>
+    <div class="paso" id="paso2">
+      <span>👨‍🍳</span>
+      <p>Ve a la tienda</p>
+    </div>
+    <div class="paso" id="paso3">
+      <span>🍽️</span>
+      <p>Recoge</p>
+    </div>
+    <div class="paso" id="paso4">
+      <span>🚚</span>
+      <p>Lleva pedido</p>
+    </div>
+    <div class="paso" id="paso5">
+      <span>✅</span>
+      <p>Entregado</p>
+    </div>
+  `;
+  card.appendChild(estado);
 
-  setTimeout(() => {
-    confirmacion.style.display = "none";
-  }, 2500);
+  const pasos = estado.querySelectorAll(".paso");
+
+  let index = 0;
+  const interval = setInterval(() => {
+    if (index > 0) pasos[index - 1].classList.remove("activo");
+    if (index < pasos.length) {
+      pasos[index].classList.add("activo");
+      index++;
+    } else {
+      clearInterval(interval);
+      document.getElementById("entregaConfirmada").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("entregaConfirmada").style.display = "none";
+      }, 2500);
+    }
+  }, 1500);
 }
+
 
 function cerrarSesion() {
   localStorage.removeItem("usuarioActivo");

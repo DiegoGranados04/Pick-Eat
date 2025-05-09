@@ -1,97 +1,32 @@
-.detalle-pedido {
-  background: var(--color-blanco);
-  padding: 2rem;
-  border-radius: 12px;
-  margin: 2rem auto;
-  max-width: 700px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-.resumen-info p {
-  margin: 0.5rem 0;
-  font-size: 1rem;
-}
-
 .barra-estado {
   display: flex;
   justify-content: space-between;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   padding: 1rem;
-  border-radius: 10px;
-  background-color: var(--color-acento);
-  transition: background-color 0.5s ease;
-}
-
-.barra-estado.estado-aceptado {
-  background-color: #D2E6CF; /* verde claro */
-}
-
-.barra-estado.estado-preparando {
-  background-color: #FFE5B4; /* amarillo claro */
-}
-
-.barra-estado.estado-listo {
-  background-color: #DDEEFF; /* azul muy claro */
-}
-
-.barra-estado.estado-recolectado,
-.barra-estado.estado-en-camino {
-  background-color: #FFF3CC; /* crema */
-}
-
-.barra-estado.estado-entregado {
-  background-color: #C8E6C9; /* éxito suave */
+  border-radius: 12px;
+  background-color: #dcedc8;
 }
 
 .paso {
-  text-align: center;
   flex: 1;
-  opacity: 0.4;
-  font-size: 0.9rem;
+  text-align: center;
+  opacity: 0.3;
+  font-weight: normal;
   transition: all 0.3s ease;
-  color: #444;
 }
 
 .paso span {
   font-size: 1.5rem;
   display: block;
-  margin-bottom: 0.2rem;
-  transition: transform 0.3s ease;
+  margin-bottom: 0.3rem;
 }
 
 .paso.activo {
   opacity: 1;
-  font-weight: 700;
-  color: var(--color-texto);
+  font-weight: bold;
+  color: #2e2e2e;
 }
 
 .paso.activo span {
   transform: scale(1.3);
-}
-
-
-.detalle-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.cerrar-detalle {
-  background-color: var(--color-error);
-  color: var(--color-blanco);
-  border: none;
-  border-radius: 50%;
-  font-size: 1.1rem;
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background 0.3s ease;
-}
-
-.cerrar-detalle:hover {
-  background-color: #a83232;
 }
