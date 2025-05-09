@@ -1,0 +1,22 @@
+#listaDirecciones {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.direccion-card {
+  background-color: var(--color-blanco);
+  border: 1px solid var(--color-acento);
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.direccion-card i {
+  color: var(--color-primario);
+}

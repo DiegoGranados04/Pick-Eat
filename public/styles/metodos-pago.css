@@ -1,0 +1,23 @@
+#metodosPago {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.tarjeta {
+  background-color: var(--color-blanco);
+  border: 1px solid var(--color-acento);
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tarjeta i {
+  color: var(--color-secundario);
+  font-size: 1.2rem;
+}

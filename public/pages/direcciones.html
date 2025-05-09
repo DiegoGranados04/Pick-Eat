@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Direcciones - Pick&Eat</title>
   <link rel="stylesheet" href="../styles/base.css" />
   <link rel="stylesheet" href="../styles/layout.css" />
   <link rel="stylesheet" href="../styles/components.css" />
   <link rel="stylesheet" href="../styles/pages.css" />
   <link rel="stylesheet" href="../styles/animations.css" />
   <link rel="stylesheet" href="../styles/menuCafeteria.css" />
-  <link rel="stylesheet" href="../styles/informacion.css">
+  <link rel="stylesheet" href="../styles/direcciones.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <header></header>
 
   <main class="container fade-in">
-    <h2>Mi información</h2>
-    <div id="infoUsuario" class="info-box"></div>
+    <h2>Mis Direcciones</h2>
+    <div id="listaDirecciones"></div>
   </main>
 
   <footer></footer>
@@ -26,18 +27,19 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const usuario = JSON.parse(localStorage.getItem("usuarioActivo"));
-      const contenedor = document.getElementById("infoUsuario");
+      const contenedor = document.getElementById("listaDirecciones");
 
-      if (!usuario) {
+      if (!usuario || usuario.role !== "cliente") {
         window.location.href = "/pages/login.html";
         return;
       }
 
-      contenedor.innerHTML = `
-        <p><strong>Nombre:</strong> ${usuario.username}</p>
-        <p><strong>Correo:</strong> ${usuario.email || "correo@ejemplo.com"}</p>
-        <p><strong>Rol:</strong> ${usuario.role}</p>
-      `;
+      const direcciones = [
+        "Av. Universidad #123, Colima, Col.",
+        "Calle Palma #56, Villa de Álvarez"
+      ];
+
+      contenedor.innerHTML = direcciones.map(d => `<p>📍 ${d}</p>`).join("");
     });
   </script>
 </body>
