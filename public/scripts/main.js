@@ -79,11 +79,13 @@ function cargarComponentes() {
       .then(res => res.text())
       .then(html => {
         header.innerHTML = html;
-        requestAnimationFrame(() => {
+
+        // Esperamos a que el DOM esté listo para evitar conflictos
+        setTimeout(() => {
           if (typeof configurarNavbar === "function") {
             configurarNavbar();
           }
-        });
+        }, 50);
       });
   }
 
@@ -94,10 +96,12 @@ function cargarComponentes() {
   }
 }
 
+
 // ✅ Personaliza dinámicamente la barra de navegación
 function configurarNavbar() {
   const usuario = JSON.parse(localStorage.getItem("usuarioActivo"));
   const navLinks = document.getElementById("navLinks");
+  const hamburguesaBtn = document.getElementById("hamburguesaBtn");
   const usuarioInfo = document.getElementById("usuarioInfo");
 
   if (!navLinks) return;
@@ -152,23 +156,22 @@ function configurarNavbar() {
 
   navLinks.innerHTML = links;
 
-  // ✅ Configuración del menú hamburguesa
-  const toggleBtn = document.getElementById("menuToggle");
-
-  if (toggleBtn && navLinks) {
-    toggleBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("show");
+  // ✅ Menú hamburguesa solo en mobile
+  if (hamburguesaBtn) {
+    hamburguesaBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle("mobile-visible");
     });
 
-    // Cierra el menú al hacer clic fuera de él (en móvil)
     document.addEventListener("click", (e) => {
-      const isClickInside = navLinks.contains(e.target) || toggleBtn.contains(e.target);
-      if (!isClickInside && navLinks.classList.contains("show")) {
-        navLinks.classList.remove("show");
+      const clickedOutside = !navLinks.contains(e.target) && !hamburguesaBtn.contains(e.target);
+      if (clickedOutside) {
+        navLinks.classList.remove("mobile-visible");
       }
     });
   }
 }
+
 
 
 // Otras funciones sin cambios

@@ -1,10 +1,11 @@
 .navbar {
   display: flex;
-  justify-content: space-between; /* distribuye logo a la izquierda y enlaces a la derecha */
+  justify-content: space-between;
   align-items: center;
   background-color: var(--color-primario);
   color: var(--color-blanco);
   padding: 0.8rem 2rem;
+  position: relative;
 }
 
 .logo-container {
@@ -25,6 +26,7 @@
   color: var(--color-blanco);
 }
 
+/* Enlaces */
 .nav-links {
   display: flex;
   gap: 1.5rem;
@@ -47,15 +49,7 @@
   color: black;
 }
 
-.footer {
-  background-color: var(--color-primario);
-  color: var(--color-blanco);
-  text-align: center;
-  padding: 1.5rem 1rem;
-  font-size: 0.9rem;
-  margin-top: 3rem;
-}
-
+/* Dropdown */
 .dropdown {
   position: relative;
 }
@@ -88,154 +82,14 @@
 .dropdown-menu a:hover,
 .dropdown-menu a:focus {
   background-color: var(--color-secundario);
-  color: #2E2E2E !important; /* Negro real */
+  color: #2E2E2E !important;
 }
-
 
 .dropdown:hover .dropdown-menu {
   display: flex;
 }
 
-.usuario-info {
-  margin-left: auto;
-  padding-right: 1.5rem;
-  color: var(--color-blanco);
-  font-weight: 500;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.nombre-usuario {
-  font-size: 0.95rem;
-  background: rgba(255,255,255,0.1);
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-}
-
-/* Estilo para submenús en la navbar */
-.submenu {
-  position: relative;
-}
-
-.submenu-items {
-  position: absolute;
-  top: 100%;
-  left: 0; /* <-- Asegura que se alinee desde la izquierda */
-  background-color: var(--color-primario);
-  padding: 0.5rem 1rem;
-  display: none;
-  flex-direction: column;
-  z-index: 1000;
-  border-radius: 0 0 8px 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  min-width: 160px;
-  white-space: nowrap; /* evita que se rompa el texto */
-}
-
-.submenu:hover .submenu-items {
-  display: flex;
-}
-
-.submenu-items a {
-  color: var(--color-blanco);
-  padding: 0.3rem 0;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.submenu-items a:hover {
-  color: black;
-  background-color: var(--color-acento);
-  border-radius: 4px;
-}
-
-/* Menú hamburguesa funcional con checkbox para mobile */
-.toggle-menu-checkbox {
-  display: none;
-}
-
-.menu-toggle-label {
-  display: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: var(--color-blanco);
-}
-
-/* Estilos responsive para menú hamburguesa */
-@media (max-width: 768px) {
-  .menu-toggle-label {
-    display: block;
-    z-index: 1001;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    background-color: var(--color-primario);
-    position: absolute;
-    top: 70px;
-    right: 0;
-    width: 100%;
-    padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-    transition: all 0.3s ease;
-  }
-
-  .toggle-menu-checkbox:checked + .menu-toggle-label + .nav-links {
-    display: flex;
-  }
-}
-
-.menu-toggle-label {
-  display: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: var(--color-blanco);
-}
-
-@media (max-width: 768px) {
-  .menu-toggle-label {
-    display: block;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    background-color: var(--color-primario);
-    position: absolute;
-    top: 70px;
-    right: 0;
-    width: 100%;
-    padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-    transition: all 0.3s ease;
-  }
-
-  .toggle-menu-checkbox:checked + .menu-toggle-label + .nav-links {
-    display: flex;
-  }
-}
-
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
-
-  .nav-links.show {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--color-primario);
-    position: absolute;
-    top: 70px;
-    right: 0;
-    width: 100%;
-    padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-  }
-}
-
+/* Botón hamburguesa */
 .hamburguesa {
   display: none;
   font-size: 2rem;
@@ -245,29 +99,31 @@
   cursor: pointer;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   .hamburguesa {
     display: block;
+    z-index: 1001;
   }
 
   .nav-links {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 70px;
+    top: 64px;
     right: 0;
     width: 100%;
     background-color: var(--color-primario);
     padding: 1rem;
-    z-index: 1000;
+    z-index: 999;
   }
 
-  .nav-links.active {
+  .nav-links.mobile-visible {
     display: flex;
   }
 
   .nav-links li {
-    margin: 0.5rem 0;
     text-align: center;
+    padding: 0.5rem 0;
   }
 }
