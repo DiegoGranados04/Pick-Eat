@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi Información - Pick&Eat</title>
+
+  <!-- Estilos base y específicos -->
   <link rel="stylesheet" href="../styles/base.css" />
   <link rel="stylesheet" href="../styles/layout.css" />
   <link rel="stylesheet" href="../styles/components.css" />
   <link rel="stylesheet" href="../styles/pages.css" />
   <link rel="stylesheet" href="../styles/animations.css" />
-  <link rel="stylesheet" href="../styles/menuCafeteria.css" />
-  <link rel="stylesheet" href="../styles/informacion.css">
+  <link rel="stylesheet" href="../styles/informacion.css" />
+
+  <!-- Fuente -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -20,25 +24,41 @@
     <div id="infoUsuario" class="info-box"></div>
   </main>
 
+
   <footer></footer>
 
-  <script src="../scripts/main.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const usuario = JSON.parse(localStorage.getItem("usuarioActivo"));
+  <!-- Scripts -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const esperarHeaderFooter = setInterval(() => {
+      const headerCargado = document.querySelector("header").innerHTML.trim() !== "";
+      const footerCargado = document.querySelector("footer").innerHTML.trim() !== "";
       const contenedor = document.getElementById("infoUsuario");
 
-      if (!usuario) {
-        window.location.href = "/pages/login.html";
-        return;
-      }
+      if (headerCargado && footerCargado && contenedor) {
+        clearInterval(esperarHeaderFooter);
 
-      contenedor.innerHTML = `
-        <p><strong>Nombre:</strong> ${usuario.username}</p>
-        <p><strong>Correo:</strong> ${usuario.email || "correo@ejemplo.com"}</p>
-        <p><strong>Rol:</strong> ${usuario.role}</p>
-      `;
-    });
-  </script>
+        const usuario = JSON.parse(localStorage.getItem("usuarioActivo"));
+        if (!usuario) {
+          window.location.href = "/pages/login.html";
+          return;
+        }
+
+        contenedor.innerHTML = `
+          <div class="info-contenido">
+            <img src="/images/user.jpg" alt="Foto de perfil" class="foto-perfil" onerror="this.style.display='none'">
+            <div class="info-datos">
+              <p><strong>Nombre:</strong> ${usuario.username}</p>
+              <p><strong>Correo:</strong> ${usuario.email || "correo@ejemplo.com"}</p>
+              <p><strong>Rol:</strong> ${usuario.role}</p>
+            </div>
+          </div>
+        `;
+      }
+    }, 100);
+  });
+</script>
+
+
 </body>
 </html>

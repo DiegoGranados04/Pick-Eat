@@ -10,15 +10,37 @@
   <link rel="stylesheet" href="../styles/pages.css" />
   <link rel="stylesheet" href="../styles/animations.css" />
   <link rel="stylesheet" href="../styles/menuCafeteria.css" />
-  <link rel="stylesheet" href="../styles/metodos-pago.css">
+  <link rel="stylesheet" href="../styles/metodos-pago.css" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <header></header>
 
   <main class="container fade-in">
-    <h2>Métodos de Pago</h2>
-    <div id="metodosPago"></div>
+    <section class="seccion-pago">
+      <h2>Métodos de Pago</h2>
+      <div id="tarjetasGuardadas" class="tarjetas-guardadas"></div>
+
+      <h3>Agregar nueva tarjeta</h3>
+      <form id="formTarjeta" class="formulario-tarjeta">
+        <label for="nombre">Nombre del titular</label>
+        <input type="text" id="nombre" placeholder="Ej. Juan Pérez" required />
+
+        <label for="numero">Número de tarjeta</label>
+        <input type="text" id="numero" maxlength="16" placeholder="Ej. 4111111111111111" required />
+
+        <label for="tipo">Tipo de tarjeta</label>
+        <input type="text" id="tipo" placeholder="Ej. Visa, MasterCard" required />
+
+        <label for="cvv">Código CVV</label>
+        <input type="text" id="cvv" maxlength="3" placeholder="Ej. 123" required />
+
+        <label for="expiracion">Fecha de expiración</label>
+        <input type="month" id="expiracion" required />
+
+        <button type="submit" class="btn">Guardar tarjeta</button>
+      </form>
+    </section>
   </main>
 
   <footer></footer>
@@ -27,23 +49,68 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const usuario = JSON.parse(localStorage.getItem("usuarioActivo"));
-      const contenedor = document.getElementById("metodosPago");
+      const contenedor = document.getElementById("tarjetasGuardadas");
+      const formulario = document.getElementById("formTarjeta");
 
       if (!usuario || usuario.role !== "cliente") {
         window.location.href = "/pages/login.html";
         return;
       }
 
-      const tarjetas = [
-        { tipo: "Visa", terminacion: "1234" },
-        { tipo: "MasterCard", terminacion: "5678" }
-      ];
+      const clave = `tarjetas_${usuario.username}`;
 
-      contenedor.innerHTML = tarjetas.map(t =>
-        `<div class="tarjeta">
-          💳 ${t.tipo} - **** **** **** ${t.terminacion}
-        </div>`
-      ).join("");
+      function obtenerTarjetas() {
+        return JSON.parse(localStorage.getItem(clave)) || [];
+      }
+
+      function guardarTarjetas(tarjetas) {
+        localStorage.setItem(clave, JSON.stringify(tarjetas));
+      }
+
+      function renderizarTarjetas() {
+        const tarjetas = obtenerTarjetas();
+        if (tarjetas.length === 0) {
+          contenedor.innerHTML = `<p class="mensaje-centrado">No tienes tarjetas registradas.</p>`;
+          return;
+        }
+
+        contenedor.innerHTML = tarjetas.map(t =>
+          `<div class="tarjeta">
+            💳 ${t.tipo} - **** **** **** ${t.numero.slice(-4)}<br>
+            <small>Expira: ${t.expiracion}</small>
+          </div>`
+        ).join("");
+      }
+
+      formulario.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const nombre = document.getElementById("nombre").value.trim();
+        const numero = document.getElementById("numero").value.trim();
+        const tipo = document.getElementById("tipo").value.trim();
+        const cvv = document.getElementById("cvv").value.trim();
+        const expiracion = document.getElementById("expiracion").value;
+
+        if (numero.length !== 16 || isNaN(numero)) {
+          alert("El número de tarjeta debe tener 16 dígitos numéricos.");
+          return;
+        }
+
+        if (cvv.length !== 3 || isNaN(cvv)) {
+          alert("El CVV debe tener 3 dígitos.");
+          return;
+        }
+
+        const nueva = { nombre, numero, tipo, cvv, expiracion };
+        const tarjetas = obtenerTarjetas();
+        tarjetas.push(nueva);
+        guardarTarjetas(tarjetas);
+        formulario.reset();
+        renderizarTarjetas();
+        alert("✅ Tarjeta registrada.");
+      });
+
+      renderizarTarjetas();
     });
   </script>
 </body>
