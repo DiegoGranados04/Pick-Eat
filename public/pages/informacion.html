@@ -21,8 +21,14 @@
 
   <main class="container fade-in">
     <h2>Mi información</h2>
-    <div id="infoUsuario" class="info-box"></div>
+    <div id="infoUsuario" class="info-box">
+      <!-- Aquí se inserta dinámicamente -->
+    </div>
+    <button id="editarBtn" class="btn">Editar</button>
+    <button id="guardarBtn" class="btn" style="display:none;">Guardar</button>
+    <button id="eliminarBtn" class="btn btn-error">Eliminar cuenta</button>
   </main>
+
 
 
   <footer></footer>
@@ -46,7 +52,7 @@
 
         contenedor.innerHTML = `
           <div class="info-contenido">
-            <img src="/images/user.jpg" alt="Foto de perfil" class="foto-perfil" onerror="this.style.display='none'">
+            <img src="../images/user.jpg" alt="Foto de perfil" class="foto-perfil" onerror="this.style.display='none'">
             <div class="info-datos">
               <p><strong>Nombre:</strong> ${usuario.username}</p>
               <p><strong>Correo:</strong> ${usuario.email || "correo@ejemplo.com"}</p>
