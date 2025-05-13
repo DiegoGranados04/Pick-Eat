@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ubicacion: "Campus Central",
       horario: "7:00am - 3:00pm",
       descripcion: "Ofrece desayunos, tortas y bebidas calientes. Ideal para iniciar tu día.",
-      imagen: "public/images/CafeUniversitario_CCF_02.jpg"
+      imagen: "images/central.jpg"
     },
     {
       id: "telematica",
