@@ -23,14 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Mostrar información general de la cafetería
   info.innerHTML = `
     <div class="header-cafeteria">
-      <img src="${cafeteria.imagen}" alt="${cafeteria.nombre}">
+      <img src="/images/CafeUniversitario.jpg" alt="${cafeteria.nombre}">
       <div>
         <h2>${cafeteria.nombre}</h2>
         <p>${cafeteria.ubicacion}</p>
         <p><strong>Horario:</strong> ${cafeteria.horario}</p>
       </div>
     </div>
-    <img src="${cafeteria.mapa}" alt="Mapa" class="mapa-cafeteria" />
+    <img src="/images/mapa.png" alt="Mapa" class="mapa-cafeteria" />
   `;
 
   // Mostrar productos
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement("div");
       card.className = "producto-card";
       card.innerHTML = `
-        <img src="${p.imagen}" alt="${p.nombre}">
+        <img src="/images/comida.png" alt="${p.nombre}">
         <h4>${p.nombre}</h4>
         <p>${p.descripcion}</p>
         <p><strong>$${p.precio.toFixed(2)}</strong></p>
