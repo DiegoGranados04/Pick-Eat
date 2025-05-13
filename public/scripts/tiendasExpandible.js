@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ubicacion: "Campus Central",
       horario: "7:00am - 3:00pm",
       descripcion: "Ofrece desayunos, tortas y bebidas calientes. Ideal para iniciar tu día.",
-      imagen: "/images/central.jpg"
+      imagen: "public/images/CafeUniversitario_CCF_02.jpg"
     },
     {
       id: "telematica",
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ubicacion: "Campus Central",
       horario: "8:00am - 2:30pm",
       descripcion: "Especialidad en snacks, frappés y bocadillos tech.",
-      imagen: "/images/telematica.jpg"
+      imagen: "https://via.placeholder.com/400x250?text=Café+Telemática"
     },
     {
       id: "snack",
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ubicacion: "Campus Central",
       horario: "9:00am - 4:00pm",
       descripcion: "Comida rápida, antojitos y postres variados.",
-      imagen: "/images/snack.jpg"
+      imagen: "https://via.placeholder.com/400x250?text=Snack+Plaza"
     }
   ];
 
